@@ -1,0 +1,11 @@
+variants_annotated	688
+vep_used	True
+frameshift_variant	86
+inframe_deletion	84
+missense_variant	83
+inframe_insertion	80
+synonymous_variant	79
+splice_donor_variant	71
+stop_gained	69
+splice_acceptor_variant	68
+start_lost	68

@@ -1,0 +1,170 @@
+digraph "dag" {
+v0 [shape=point,label="",fixedsize=true,width=0.1,xlabel="Channel.fromPath"];
+v7 [label="PREPROCESSING:PARSE_VCF"];
+v0 -> v7 [label="ch_vcf"];
+
+v1 [shape=point,label="",fixedsize=true,width=0.1,xlabel="Channel.empty"];
+v2 [shape=point];
+v1 -> v2 [label="ch_variants_pre"];
+
+v3 [shape=point,label="",fixedsize=true,width=0.1,xlabel="Channel.fromPath"];
+v13 [label="PREPROCESSING:MERGE_LABELS"];
+v3 -> v13 [label="ch_known"];
+
+v4 [shape=point,label="",fixedsize=true,width=0.1,xlabel="Channel.fromPath"];
+v23 [label="GRAPH_CONSTRUCTION:BUILD_PROTEIN_GRAPH"];
+v4 -> v23 [label="ch_ppi"];
+
+v5 [shape=point,label="",fixedsize=true,width=0.1,xlabel="Channel.fromPath"];
+v20 [label="FEATURE_EXTRACTION:EXTRACT_GENE_FEATURES"];
+v5 -> v20 [label="ch_gene_annot"];
+
+v6 [shape=point,label="",fixedsize=true,width=0.1,xlabel="Channel.fromPath"];
+v18 [label="FEATURE_EXTRACTION:EXTRACT_CONSERVATION"];
+v6 -> v18 [label="ch_conservation"];
+
+v7 [label="PREPROCESSING:PARSE_VCF"];
+v9 [label="PREPROCESSING:FILTER_VARIANTS"];
+v7 -> v9 [label="ch_raw"];
+
+v7 [label="PREPROCESSING:PARSE_VCF"];
+v8 [shape=point];
+v7 -> v8;
+
+v9 [label="PREPROCESSING:FILTER_VARIANTS"];
+v11 [label="PREPROCESSING:ANNOTATE_VARIANTS"];
+v9 -> v11;
+
+v9 [label="PREPROCESSING:FILTER_VARIANTS"];
+v10 [shape=point];
+v9 -> v10;
+
+v11 [label="PREPROCESSING:ANNOTATE_VARIANTS"];
+v13 [label="PREPROCESSING:MERGE_LABELS"];
+v11 -> v13 [label="ch_variants"];
+
+v11 [label="PREPROCESSING:ANNOTATE_VARIANTS"];
+v12 [shape=point];
+v11 -> v12;
+
+v13 [label="PREPROCESSING:MERGE_LABELS"];
+v15 [label="PREPROCESSING:SPLIT_DATASET"];
+v13 -> v15;
+
+v13 [label="PREPROCESSING:MERGE_LABELS"];
+v14 [shape=point];
+v13 -> v14;
+
+v15 [label="PREPROCESSING:SPLIT_DATASET"];
+v28 [label="GNN_TRAINING:TRAIN_GNN"];
+v15 -> v28 [label="ch_labels"];
+
+v15 [label="PREPROCESSING:SPLIT_DATASET"];
+v16 [shape=point];
+v15 -> v16;
+
+v11 [label="PREPROCESSING:ANNOTATE_VARIANTS"];
+v17 [label="FEATURE_EXTRACTION:EXTRACT_SEQUENCE_FEATURES"];
+v11 -> v17 [label="ch_variants"];
+
+v17 [label="FEATURE_EXTRACTION:EXTRACT_SEQUENCE_FEATURES"];
+v21 [label="FEATURE_EXTRACTION:COMBINE_FEATURES"];
+v17 -> v21;
+
+v11 [label="PREPROCESSING:ANNOTATE_VARIANTS"];
+v18 [label="FEATURE_EXTRACTION:EXTRACT_CONSERVATION"];
+v11 -> v18 [label="ch_variants"];
+
+v18 [label="FEATURE_EXTRACTION:EXTRACT_CONSERVATION"];
+v21 [label="FEATURE_EXTRACTION:COMBINE_FEATURES"];
+v18 -> v21;
+
+v11 [label="PREPROCESSING:ANNOTATE_VARIANTS"];
+v19 [label="FEATURE_EXTRACTION:EXTRACT_STRUCTURAL_FEATURES"];
+v11 -> v19 [label="ch_variants"];
+
+v19 [label="FEATURE_EXTRACTION:EXTRACT_STRUCTURAL_FEATURES"];
+v21 [label="FEATURE_EXTRACTION:COMBINE_FEATURES"];
+v19 -> v21;
+
+v11 [label="PREPROCESSING:ANNOTATE_VARIANTS"];
+v20 [label="FEATURE_EXTRACTION:EXTRACT_GENE_FEATURES"];
+v11 -> v20 [label="ch_variants"];
+
+v20 [label="FEATURE_EXTRACTION:EXTRACT_GENE_FEATURES"];
+v21 [label="FEATURE_EXTRACTION:COMBINE_FEATURES"];
+v20 -> v21;
+
+v21 [label="FEATURE_EXTRACTION:COMBINE_FEATURES"];
+v25 [label="GRAPH_CONSTRUCTION:ASSIGN_NODE_FEATURES"];
+v21 -> v25 [label="ch_node_features"];
+
+v21 [label="FEATURE_EXTRACTION:COMBINE_FEATURES"];
+v22 [shape=point];
+v21 -> v22 [label="feature_names"];
+
+v23 [label="GRAPH_CONSTRUCTION:BUILD_PROTEIN_GRAPH"];
+v25 [label="GRAPH_CONSTRUCTION:ASSIGN_NODE_FEATURES"];
+v23 -> v25;
+
+v23 [label="GRAPH_CONSTRUCTION:BUILD_PROTEIN_GRAPH"];
+v24 [shape=point];
+v23 -> v24;
+
+v25 [label="GRAPH_CONSTRUCTION:ASSIGN_NODE_FEATURES"];
+v26 [label="GRAPH_CONSTRUCTION:SERIALIZE_GRAPH"];
+v25 -> v26;
+
+v26 [label="GRAPH_CONSTRUCTION:SERIALIZE_GRAPH"];
+v28 [label="GNN_TRAINING:TRAIN_GNN"];
+v26 -> v28 [label="ch_graph_data"];
+
+v26 [label="GRAPH_CONSTRUCTION:SERIALIZE_GRAPH"];
+v27 [shape=point];
+v26 -> v27 [label="graph_stats"];
+
+v28 [label="GNN_TRAINING:TRAIN_GNN"];
+v31 [label="GNN_PREDICTION:PREDICT_GNN"];
+v28 -> v31 [label="ch_model"];
+
+v28 [label="GNN_TRAINING:TRAIN_GNN"];
+v30 [shape=point];
+v28 -> v30 [label="training_logs"];
+
+v28 [label="GNN_TRAINING:TRAIN_GNN"];
+v29 [shape=point];
+v28 -> v29 [label="checkpoints"];
+
+v26 [label="GRAPH_CONSTRUCTION:SERIALIZE_GRAPH"];
+v31 [label="GNN_PREDICTION:PREDICT_GNN"];
+v26 -> v31 [label="ch_graph_data"];
+
+v31 [label="GNN_PREDICTION:PREDICT_GNN"];
+v34 [label="EVALUATION:EVALUATE_MODEL"];
+v31 -> v34 [label="ch_predictions"];
+
+v31 [label="GNN_PREDICTION:PREDICT_GNN"];
+v33 [shape=point];
+v31 -> v33 [label="probabilities"];
+
+v31 [label="GNN_PREDICTION:PREDICT_GNN"];
+v32 [shape=point];
+v31 -> v32 [label="variant_scores"];
+
+v15 [label="PREPROCESSING:SPLIT_DATASET"];
+v34 [label="EVALUATION:EVALUATE_MODEL"];
+v15 -> v34 [label="ch_labels"];
+
+v34 [label="EVALUATION:EVALUATE_MODEL"];
+v37 [shape=point];
+v34 -> v37 [label="metrics"];
+
+v34 [label="EVALUATION:EVALUATE_MODEL"];
+v36 [shape=point];
+v34 -> v36 [label="plots"];
+
+v34 [label="EVALUATION:EVALUATE_MODEL"];
+v35 [shape=point];
+v34 -> v35 [label="report"];
+
+}

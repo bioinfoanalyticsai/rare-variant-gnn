@@ -1,0 +1,4 @@
+total	704
+pathogenic	20
+benign	76
+vus_unknown	608
