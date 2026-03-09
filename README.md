@@ -1,3 +1,4 @@
+
 # 🧬 Rare Variant Pathogenicity Prediction — GNN Pipeline
 
 End-to-end **Nextflow** pipeline for predicting the pathogenicity of rare genetic variants using **Graph Attention Networks (GAT)**. The model leverages protein-protein interaction (PPI) networks, multi-scale sequence conservation, and functional annotations to classify variants as **pathogenic** or **benign**.
@@ -332,3 +333,7 @@ results/
 ## 📜 License
 
 MIT License — see LICENSE file.
+
+
+[rare_variant_gnn_methods_final.docx](https://github.com/user-attachments/files/25837031/rare_variant_gnn_methods_final.docx)
+
