@@ -1,0 +1,9 @@
+train_total	63
+train_pathogenic	15
+train_benign	48
+val_total	17
+val_pathogenic	4
+val_benign	13
+test_total	16
+test_pathogenic	1
+test_benign	15
